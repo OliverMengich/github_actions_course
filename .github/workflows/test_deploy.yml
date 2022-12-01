@@ -1,0 +1,31 @@
+name: Test Project
+on: push
+jobs:
+  test:
+   runs-on: ubuntu-latest
+   steps:
+    - name: Get Code or download Code from Repo.
+      uses: actions/checkout@v3 # brings repository to current runner
+    - name: Install NodeJS
+      uses: actions/setup-node@v3
+      with:
+       node-version: 18
+    - name: Install Dependencies # installs depencies to be used
+      run: npm ci # uses the same packages stated in package-lock.json
+    - name: Run tests #run the tests
+      run: npm run test
+  deploy:
+   runs-on: ubuntu-latest
+   steps:
+    - name: Get Code
+      uses: actions/checkout@v3
+    - name: Install NodeJS
+      uses: actions/setup-node@v3
+      with:
+       node-version: 18
+    - name: Install Dependencies
+      run: npm ci
+    - name: Build Project
+      run: npm run build
+    - name: Deploy
+      run: echo "Deploying....."
